@@ -30,9 +30,19 @@ Currently, we are not creating MongoDB images on our own but leveraging the upst
 
 By default we are creating a MongoDB Replica Set without sharding support.
 
-Follow below steps to create, configure, and failover tests.
+### Enforce Keyfile Access Control for Replica Set
+
+https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/#create-a-keyfile
+
+```bash
+$ openssl rand -base64 756 > mongod-keyfile
+$ chmod 600 mongod-keyfile
+```
 
 ### Deploy a Replica Set
+
+Follow below steps to create, configure, and failover tests.
+
 ```bash
 $ docker-compose up -d
 ```
@@ -178,3 +188,4 @@ We're going to add relevant tests for a MongoDB Replica Set soon.
 4. [Read Preference](https://docs.mongodb.com/manual/core/read-preference/)
 5. [Mongo Express](https://github.com/mongo-express/mongo-express)
 6. [NoSQLClient](https://github.com/nosqlclient/nosqlclient)
+7. [Update Replica Set to Keyfile Authentication](https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/)
