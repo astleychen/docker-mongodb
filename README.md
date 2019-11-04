@@ -30,6 +30,18 @@ Currently, we are not creating MongoDB images on our own but leveraging the upst
 
 By default we are creating a MongoDB Replica Set without sharding support.
 
+### Bitnami
+
+If you'd like to utilize Bitnami MongoDB images, you can simply run below commands in `./bitnami` folder.
+For official MongoDB images, please follow next section to begin the deployment.
+
+```bash
+$ docker-compose up -d
+```
+
+For configurations, refer to:
+https://github.com/bitnami/bitnami-docker-mongodb/blob/master/README.md
+
 ### Enforce Keyfile Access Control for Replica Set
 
 https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/#create-a-keyfile

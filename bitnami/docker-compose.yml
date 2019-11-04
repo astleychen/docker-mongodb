@@ -1,0 +1,44 @@
+# Upstream: https://github.com/bitnami/bitnami-docker-mongodb
+
+version: '3.6'
+services:
+  mongodb-primary:
+    image: bitnami/mongodb:4.2.1
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_NAME=rs0
+      - MONGODB_ROOT_PASSWORD=password
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+    volumes:
+      - 'mongodb_data:/bitnami'
+    ports:
+      - 27017:27017
+
+  mongodb-secondary:
+    image: bitnami/mongodb:4.2.1
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_NAME=rs0
+      - MONGODB_PRIMARY_HOST=mongodb-primary
+      - MONGODB_PRIMARY_ROOT_PASSWORD=password
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+
+  mongodb-arbiter:
+    image: bitnami/mongodb:4.2.1
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_REPLICA_SET_NAME=rs0
+      - MONGODB_PRIMARY_HOST=mongodb-primary
+      - MONGODB_PRIMARY_ROOT_PASSWORD=password
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+
+volumes:
+  mongodb_data:
+    driver: local
